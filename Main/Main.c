@@ -1,4 +1,8 @@
 #include <stdio.h>
+<<<<<<< HEAD
+
+#include <stdbool.h>
+#define N 100000
 
 int main(void)
 {
