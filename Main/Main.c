@@ -1,85 +1,49 @@
 #include <stdio.h>
+#include <math.h>
 #include <stdbool.h>
-#define MAX 100
-void NhapDSDac(int a[], int *n)
+bool CheckNum(unsigned long long int del)
 {
-    printf("Nhap n: ");
-    scanf("%d", n);
-    for(int i = 0; i < *n; i++)
+    if (del>=0)
     {
-        printf("Nhap a[%d] = ", i);
-        scanf("%d", &a[i]);
+        unsigned long long int sr = sqrt(del);
+        return (sr*sr == del);
     }
-}
-
-void XuatDSDac(const int a[], const int n)
-{
-    for(int i = 0; i < n; i++)
+    return false;
+    /*unsigned long long int i = 0;
+    while(i*i <= del)
     {
-        printf("a[%d] = %d \t", i, a[i]);
-    }
-    printf("\n");
-} 
-
-int TimDauTien(int a[], int n, int x)
-{
-    int vt = -1;
-    for(int i = 0; i < n; i++)
-    {
-        if(a[i] == x)
+        if(i*i == del)
         {
-            vt = i;
-            break;
+            return 1;
         }
-    }
-    return vt;
+        ++i;
+    }*/
 }
-
-bool ChenViTri(int a[], int *n, int vitri, int x)
+int Result(unsigned long long int Candles)
 {
-    if(vitri < 0 || vitri > *n)
+    unsigned long long int delta;
+    delta = 1 + 4*2*Candles;
+    if(CheckNum(delta)==true)
     {
-        return false;
+        return (-1+sqrt(delta))/2;
     }
     else
     {
-        (*n)++;
-        for(int i = (*n); i >= vitri; i--)
-        {
-            a[i] = a[i-1];
-        }
-        a[vitri] = x;
-        return true;
+        return -1;
     }
-}
 
+}
 int main(void)
 {
-    int a[MAX];
-    int n;
-    int x;
-    NhapDSDac(a, &n);
-    XuatDSDac(a, n);
-    printf("Nhap x = ");
-    scanf("%d", &x);
-    int vitri;
-    printf("Nhap vi tri muon chen = ");
-    scanf("%d", &vitri);
-    printf("====Ket qua chen===");
-    if(ChenViTri(a,&n,vitri,x) == true)
+    int T, TestCase;
+    unsigned long long int TotalCandles;
+    int re;
+    scanf("%d", &T);
+    for(TestCase = 1; TestCase<=T; ++TestCase)
     {
-        XuatDSDac(a,n);
+        scanf("%lld", &TotalCandles);
+        re = Result(TotalCandles);
+        printf("#%d %d\n", TestCase, re);
     }
-    // printf("Nhap x = ");
-    // scanf("%d", &x);
-    // int vt = TimDauTien(a, n, x);
-    // if(vt == -1)
-    // {
-    //    printf("Khong tim thay"); 
-    // }
-    // else
-    // {
-    //     printf("Vi tri la %d", vt);
-    // }
     return 0;
 }
